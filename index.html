@@ -1,238 +1,186 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Portfolio Admin</title>
-<style>
-  :root{--black:#050505;--white:#f7f7f5;--text:#1c1c1c;--muted:#8a8a86;--line:#d7d7d2}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--white);color:var(--text);font-family:-apple-system,Inter,Arial,sans-serif;padding:40px 20px}
-  .wrap{max-width:640px;margin:0 auto}
-  h1{font-size:22px;margin:0 0 6px}
-  .sub{color:var(--muted);font-size:13px;margin:0 0 32px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:24px;margin-bottom:20px}
-  label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:#444}
-  select,input[type=text],input[type=password]{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font-size:14px;margin-bottom:16px;background:#fff}
-  input[type=file]{width:100%;margin-bottom:16px;font-size:13px}
-  button{background:var(--black);color:#fff;border:0;padding:11px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer}
-  button:disabled{opacity:.5;cursor:not-allowed}
-  .preview{max-width:100%;max-height:220px;border-radius:6px;margin-bottom:16px;display:none;object-fit:contain}
-  .status{font-size:13px;margin-top:14px;padding:10px 12px;border-radius:6px;display:none}
-  .status.ok{background:#e8f7ee;color:#166534;display:block}
-  .status.err{background:#fdeceb;color:#b42318;display:block}
-  .status.pending{background:#f0f0ee;color:#555;display:block}
-  #gate{max-width:340px;margin:80px auto}
-  #app{display:none}
-  .hint{font-size:11px;color:var(--muted);margin-top:-10px;margin-bottom:16px}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manoj Depuri — UI/UX Designer, creative technologist and motion designer.">
+  <title>Manoj Depuri — UI/UX Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="hero" id="top">
+    <nav class="hero-nav shell">
+      <a href="#top" class="brand">MANOJ DEPURI</a>
+      <a href="mailto:depurimanoj019@gmail.com">DEPURIMANOJ019@GMAIL.COM</a>
+      <button class="menu-button" aria-label="Open menu"><span></span><span></span></button>
+    </nav>
 
-<div id="gate" class="card">
-  <h1>Portfolio Admin</h1>
-  <p class="sub">Enter your admin password to continue.</p>
-  <input type="password" id="pw" placeholder="Password">
-  <button onclick="unlock()">Unlock</button>
-  <div id="gateStatus" class="status err"></div>
-</div>
-
-<div id="app" class="wrap">
-  <h1>Portfolio Admin</h1>
-  <p class="sub">Upload a picture to replace any image on the live site. Changes go live automatically in about a minute.</p>
-
-  <div class="card">
-    <label>Where does this image go?</label>
-    <select id="slot" onchange="onSlotChange()">
-      <optgroup label="Home / About">
-        <option value="assets/projects/portrait.jpg">Intro portrait photo</option>
-        <option value="assets/projects/about-portrait.jpg">About section photo</option>
-      </optgroup>
-      <optgroup label="Best Works (Featured)">
-        <option value="assets/projects/nike-red.jpg">Nike — picture</option>
-        <option value="assets/videos/nike-red.mp4">Nike — video</option>
-        <option value="assets/projects/donut.jpg">Donut — picture</option>
-        <option value="assets/videos/donut.mp4">Donut — video</option>
-        <option value="assets/projects/parallax.jpg">Parallax — picture</option>
-        <option value="assets/videos/parallax.mp4">Parallax — video</option>
-      </optgroup>
-      <optgroup label="Case Study Board 1">
-        <option value="assets/projects/case1-logo.jpg">Board 1 — logo tile</option>
-        <option value="assets/projects/case1-icons.jpg">Board 1 — icons tile</option>
-        <option value="assets/projects/case1-phone.jpg">Board 1 — phone tile</option>
-        <option value="assets/projects/case1-subway.jpg">Board 1 — subway/ad tile</option>
-        <option value="assets/projects/case1-badge.jpg">Board 1 — badge tile</option>
-        <option value="assets/projects/case1-swatch.jpg">Board 1 — swatch tile</option>
-      </optgroup>
-      <optgroup label="Case Study Board 2">
-        <option value="assets/projects/case2-logo.jpg">Board 2 — logo tile</option>
-        <option value="assets/projects/case2-icons.jpg">Board 2 — icons tile</option>
-        <option value="assets/projects/case2-phone.jpg">Board 2 — phone tile</option>
-        <option value="assets/projects/case2-subway.jpg">Board 2 — subway/ad tile</option>
-        <option value="assets/projects/case2-badge.jpg">Board 2 — badge tile</option>
-        <option value="assets/projects/case2-swatch.jpg">Board 2 — swatch tile</option>
-      </optgroup>
-      <optgroup label="Case Study Board 3">
-        <option value="assets/projects/case3-logo.jpg">Board 3 — logo tile</option>
-        <option value="assets/projects/case3-icons.jpg">Board 3 — icons tile</option>
-        <option value="assets/projects/case3-phone.jpg">Board 3 — phone tile</option>
-        <option value="assets/projects/case3-subway.jpg">Board 3 — subway/ad tile</option>
-        <option value="assets/projects/case3-badge.jpg">Board 3 — badge tile</option>
-        <option value="assets/projects/case3-swatch.jpg">Board 3 — swatch tile</option>
-      </optgroup>
-      <optgroup label="Portfolio Grid">
-        <option value="assets/projects/bewaz.jpg">Bewaz</option>
-        <option value="assets/projects/gilded-table.jpg">Gilded Table</option>
-        <option value="assets/projects/apple.jpg">Apple</option>
-        <option value="assets/projects/bloomscape.jpg">Bloomscape</option>
-        <option value="assets/projects/tokyo-drift.jpg">Tokyo Drift</option>
-      </optgroup>
-      <optgroup label="About — Experience images">
-        <option value="assets/projects/experience-car.jpg">Experience — car</option>
-        <option value="assets/projects/experience-door.jpg">Experience — door</option>
-      </optgroup>
-      <optgroup label="Services thumbnails">
-        <option value="assets/projects/service-parallax.jpg">Service — parallax</option>
-        <option value="assets/projects/service-donut.jpg">Service — donut</option>
-        <option value="assets/projects/frozen-echoes.jpg">Service — frozen echoes</option>
-        <option value="assets/projects/service-bewaz.jpg">Service — bewaz</option>
-        <option value="assets/projects/service-bloom.jpg">Service — bloomscape</option>
-        <option value="assets/projects/echoes-elegance.jpg">Service — echoes of elegance</option>
-      </optgroup>
-      <optgroup label="Other">
-        <option value="assets/resume/Manoj_Depuri_Resume.pdf">Resume PDF</option>
-        <option value="__custom__">Custom path...</option>
-      </optgroup>
-    </select>
-
-    <div id="customWrap" style="display:none">
-      <label>Custom path (must start with assets/)</label>
-      <input type="text" id="customPath" placeholder="assets/projects/my-new-image.jpg">
+    <div class="hero-meta shell">
+      <p>Designer<br>Creative Director<br>AI Artist</p>
+      <p class="location">FLORIDA /<br><span id="clock">08 50 PM</span></p>
     </div>
-    <p class="hint">Tip: the file you upload should match the same file type as what's being replaced (e.g. upload a .jpg to replace a .jpg).</p>
 
-    <label>Choose file</label>
-    <input type="file" id="file" onchange="previewFile()">
-    <img id="preview" class="preview">
+    <div class="hero-title shell">
+      <div class="edition"><strong>/26</strong><span>SELECTED PROJECTS</span></div>
+      <h1>UI/UX<br>DESIGNER</h1>
+    </div>
 
-    <button id="uploadBtn" onclick="upload()">Upload &amp; publish</button>
-    <div id="status" class="status"></div>
-  </div>
-</div>
+    <div class="hero-footer shell">
+      <a href="#portfolio">PORTFOLIO</a>
+      <div><a href="#">X</a><a href="#">LI</a><a href="#">BE</a></div>
+    </div>
+  </header>
 
-<script>
-let PASSWORD = '';
+  <main>
+    <section class="section intro" id="introduction">
+      <div class="section-rule shell"><span>01</span><i></i><b>/INTRODUCTION</b></div>
+      <div class="side-label">/about me</div>
+      <div class="content-shell intro-content">
+        <h2>I craft visual systems where design meets technology. <em>My work blends human insight with machine precision</em> — without losing meaning.</h2>
+        <div class="intro-info">
+          <img src="assets/projects/portrait.jpg" alt="Manoj Depuri portrait">
+          <div class="intro-copy">
+            <p>I’m Manoj Depuri, a UI/UX Designer with over 3+ years of experience creating user-centric solutions for digital products across financial services, e-commerce, and education technology.</p>
+            <p>All things UX, motion design, interaction design, and product design. Yep, I do them all.</p>
+          </div>
+          <a class="corner-button" href="assets/resume/Manoj_Depuri_Resume.pdf" target="_blank" rel="noopener">RESUME</a>
+        </div>
+        <div class="worked-with">
+          <b>/TOOLS</b>
+          <div class="logo-marquee">
+            <div class="logo-track">
+              <img src="assets/logos/figma.svg" alt="Figma">
+              <img src="assets/logos/adobexd.svg" alt="Adobe XD">
+              <img src="assets/logos/adobephotoshop.svg" alt="Photoshop">
+              <img src="assets/logos/framer.svg" alt="Framer">
+              <img src="assets/logos/sketch.svg" alt="Sketch">
+              <img src="assets/logos/react.svg" alt="React">
+              <img src="assets/logos/supabase.svg" alt="Supabase">
+              <img src="assets/logos/stripe.svg" alt="Stripe">
+              <img src="assets/logos/resend.svg" alt="Resend">
+              <img src="assets/logos/canva.svg" alt="Canva">
+              <img src="assets/logos/figma.svg" alt="Figma" aria-hidden="true">
+              <img src="assets/logos/adobexd.svg" alt="Adobe XD" aria-hidden="true">
+              <img src="assets/logos/adobephotoshop.svg" alt="Photoshop" aria-hidden="true">
+              <img src="assets/logos/framer.svg" alt="Framer" aria-hidden="true">
+              <img src="assets/logos/sketch.svg" alt="Sketch" aria-hidden="true">
+              <img src="assets/logos/react.svg" alt="React" aria-hidden="true">
+              <img src="assets/logos/supabase.svg" alt="Supabase" aria-hidden="true">
+              <img src="assets/logos/stripe.svg" alt="Stripe" aria-hidden="true">
+              <img src="assets/logos/resend.svg" alt="Resend" aria-hidden="true">
+              <img src="assets/logos/canva.svg" alt="Canva" aria-hidden="true">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-function unlock(){
-  const pw = document.getElementById('pw').value;
-  if(!pw){ showGateError('Enter a password'); return; }
-  PASSWORD = pw;
-  sessionStorage.setItem('admin_pw', pw);
-  document.getElementById('gate').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-}
+    <section class="section featured">
+      <div class="section-rule shell"><span>02</span><i></i><b>/FEATURED</b></div>
+      <div class="side-label">/featured</div>
+      <div class="content-shell">
+        <h2 class="massive-title">.. best works</h2>
+        <div class="featured-stack">
+          <figure><a href="assets/videos/nike-red.mp4" target="_blank" rel="noopener"><img src="assets/projects/nike-red.jpg" alt="Nike motion design project"></a><figcaption>NIKE MOTION DESIGN</figcaption></figure>
+          <figure><a href="assets/videos/donut.mp4" target="_blank" rel="noopener"><img src="assets/projects/donut.jpg" alt="Donut motion design project"></a><figcaption>DONUT MOTION DESIGN</figcaption></figure>
+          <figure><a href="assets/videos/parallax.mp4" target="_blank" rel="noopener"><img src="assets/projects/parallax.jpg" alt="Parallax effect design prototype"></a><figcaption>PARALLAX EFFECT DESIGN PROTOTYPING</figcaption></figure>
+        </div>
+      </div>
+    </section>
 
-function showGateError(msg){
-  const el = document.getElementById('gateStatus');
-  el.textContent = msg;
-  el.style.display = 'block';
-}
+    <section class="section principles">
+      <div class="side-label">/principles</div>
+      <div class="content-shell">
+        <h2 class="massive-title">.. work principles</h2>
+        <div class="principle-intro"><p>Formats are tailored for<br>web, social media, or print.</p><h3>Every project is tailored to<br>the client and business</h3></div>
+                <div class="case-scroll">
+          <div class="case-board">
+            <figure class="cb-logo"><img src="assets/projects/case1-logo.jpg" alt="Case study 1 logo"></figure>
+            <figure class="cb-icons"><img src="assets/projects/case1-icons.jpg" alt="Case study 1 icon breakdown"></figure>
+            <figure class="cb-phone"><img src="assets/projects/case1-phone.jpg" alt="Case study 1 phone mockup"></figure>
+            <figure class="cb-subway"><img src="assets/projects/case1-subway.jpg" alt="Case study 1 environmental ad"></figure>
+            <figure class="cb-badge"><img src="assets/projects/case1-badge.jpg" alt="Case study 1 badge detail"></figure>
+            <figure class="cb-swatch"><img src="assets/projects/case1-swatch.jpg" alt="Case study 1 color palette"></figure>
+          </div>
+          <div class="case-board">
+            <figure class="cb-logo"><img src="assets/projects/case2-logo.jpg" alt="Case study 2 logo"></figure>
+            <figure class="cb-icons"><img src="assets/projects/case2-icons.jpg" alt="Case study 2 icon breakdown"></figure>
+            <figure class="cb-phone"><img src="assets/projects/case2-phone.jpg" alt="Case study 2 phone mockup"></figure>
+            <figure class="cb-subway"><img src="assets/projects/case2-subway.jpg" alt="Case study 2 environmental ad"></figure>
+            <figure class="cb-badge"><img src="assets/projects/case2-badge.jpg" alt="Case study 2 badge detail"></figure>
+            <figure class="cb-swatch"><img src="assets/projects/case2-swatch.jpg" alt="Case study 2 color palette"></figure>
+          </div>
+          <div class="case-board">
+            <figure class="cb-logo"><img src="assets/projects/case3-logo.jpg" alt="Case study 3 logo"></figure>
+            <figure class="cb-icons"><img src="assets/projects/case3-icons.jpg" alt="Case study 3 icon breakdown"></figure>
+            <figure class="cb-phone"><img src="assets/projects/case3-phone.jpg" alt="Case study 3 phone mockup"></figure>
+            <figure class="cb-subway"><img src="assets/projects/case3-subway.jpg" alt="Case study 3 environmental ad"></figure>
+            <figure class="cb-badge"><img src="assets/projects/case3-badge.jpg" alt="Case study 3 badge detail"></figure>
+            <figure class="cb-swatch"><img src="assets/projects/case3-swatch.jpg" alt="Case study 3 color palette"></figure>
+          </div>
+        </div>
+      </div>
+    </section>
 
-// Restore session if already unlocked this tab
-window.onload = () => {
-  const saved = sessionStorage.getItem('admin_pw');
-  if(saved){
-    PASSWORD = saved;
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-  }
-};
+    <section class="section portfolio" id="portfolio">
+      <div class="section-rule shell"><span>03</span><i></i><b>/PORTFOLIO</b></div>
+      <div class="side-label">/works</div>
+      <div class="content-shell">
+        <h2 class="massive-title">.. latest portfolio</h2>
+        <div class="portfolio-layout">
+          <article class="project project-main"><img src="assets/projects/bewaz.jpg" alt="BEWAZ product design"><h3>PRODUCT DESIGN</h3><p>BEWAZ</p></article>
+          <article class="project project-small"><img src="assets/projects/gilded-table.jpg" alt="Gilded Table website"><h3>UI/UX DESIGNER</h3><p>Gilded Table</p></article>
+          <article class="project project-wide"><img src="assets/projects/apple.jpg" alt="Apple AirPods Max motion design"><h3>MOTION DESIGN – APPLE</h3><p>Apple</p></article>
+          <article class="project project-small"><img src="assets/projects/bloomscape.jpg" alt="Bloomscape concept"><h3>BLOOMSCAPE</h3><p>FLORÉA</p></article>
+          <article class="project project-medium"><img src="assets/projects/tokyo-drift.jpg" alt="Tokyo Motion Drift"><h3>TOKYO MOTION DRIFT</h3><p>TOKYO MOTION DRIFT</p></article>
+        </div>
+        <a class="corner-button all-work" href="#">SEE ALL MY WORKS</a>
+      </div>
+    </section>
 
-function onSlotChange(){
-  const val = document.getElementById('slot').value;
-  document.getElementById('customWrap').style.display = (val === '__custom__') ? 'block' : 'none';
-}
+    <section class="section about">
+      <div class="section-rule shell"><span>04</span><i></i><b>/ABOUT</b></div>
+      <div class="side-label">/experience</div>
+      <div class="content-shell">
+        <div class="about-top">
+          <div class="mini-stats"><p><b>2</b> awards</p><p><b>1000</b> lectures</p><p><b>200+</b> students</p><p><b>460</b> portfolio works</p></div>
+          <div class="about-copy"><h2>I’m Manoj Depuri—I design with intent where <em>clarity meets emotional impact, technology enhances</em></h2><p>Creating thoughtful digital products and visual experiences across web, product, and motion design.</p><div class="social-mini">LI &nbsp;&nbsp; X &nbsp;&nbsp; IG</div></div>
+          <img src="assets/projects/about-portrait.jpg" alt="Manoj Depuri">
+        </div>
+        <div class="facts">
+          <h2>/facts & figures</h2>
+          <div><strong data-count="26">0</strong><span>Projects completed</span></div>
+          <div><strong data-count="3">0</strong><span>Years of experience</span></div>
+          <div><strong data-count="18">0</strong><span>Satisfied clients</span></div>
+        </div>
+        <div class="experience-images"><img src="assets/projects/experience-car.jpg" alt="Automotive concept"><img src="assets/projects/experience-door.jpg" alt="Concept art"></div>
+      </div>
+    </section>
 
-function previewFile(){
-  const file = document.getElementById('file').files[0];
-  const img = document.getElementById('preview');
-  if(file && file.type.startsWith('image/')){
-    img.src = URL.createObjectURL(file);
-    img.style.display = 'block';
-  } else {
-    img.style.display = 'none';
-  }
-}
+    <section class="section services">
+      <div class="side-label">/what i do</div>
+      <div class="content-shell">
+        <h2 class="massive-title">.. services</h2>
+        <div class="service-row"><div><h3>AI-Driven Video</h3><p>Unique artwork and concepts generated with AI, blending technology and creativity for brands and projects.</p></div><div class="service-projects"><figure><img src="assets/projects/service-parallax.jpg"><figcaption>PARALLAX EFFECT DESIGN<br>PROTOTYPING</figcaption></figure><figure><img src="assets/projects/service-donut.jpg"><figcaption>DONUT MOTION DESIGN</figcaption></figure></div></div>
+        <div class="service-row"><div><h3>Custom Illustrations</h3><p>Tailored visuals created in your style, perfect for websites, social media, and editorial use.</p></div><div class="service-projects"><figure><img src="assets/projects/frozen-echoes.jpg"><figcaption>FROZEN ECHOES<br><span>Concept Project</span></figcaption></figure><figure><img src="assets/projects/service-bewaz.jpg"><figcaption>PRODUCT DESIGN<br><span>BEWAZ</span></figcaption></figure></div></div>
+        <div class="service-row"><div><h3>Concept Arts</h3><p>From moodboards to final assets — I help you shape bold visual ideas into polished designs.</p></div><div class="service-projects"><figure><img src="assets/projects/service-bloom.jpg"><figcaption>BLOOMSCAPE<br><span>FLORÉA</span></figcaption></figure><figure><img src="assets/projects/echoes-elegance.jpg"><figcaption>ECHOES OF ELEGANCE<br><span>Noir</span></figcaption></figure></div></div>
+        <a class="corner-button" href="mailto:depurimanoj019@gmail.com">CONTACT ME</a>
+      </div>
+    </section>
+  </main>
 
-async function upload(){
-  const slotVal = document.getElementById('slot').value;
-  const path = slotVal === '__custom__' ? document.getElementById('customPath').value.trim() : slotVal;
-  const fileInput = document.getElementById('file');
-  const statusEl = document.getElementById('status');
-  const btn = document.getElementById('uploadBtn');
-
-  if(!path || !path.startsWith('assets/')){
-    setStatus('err', 'Path must start with assets/'); return;
-  }
-  if(!fileInput.files[0]){
-    setStatus('err', 'Choose a file first'); return;
-  }
-
-  btn.disabled = true;
-  setStatus('pending', 'Uploading and publishing... this can take a few seconds.');
-
-  try{
-    const file = fileInput.files[0];
-    const base64 = await fileToBase64(file);
-
-    const resp = await fetch('/api/save-image', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        password: PASSWORD,
-        path,
-        contentBase64: base64,
-        message: `Update ${path} via admin panel`
-      })
-    });
-
-    const data = await resp.json();
-
-    if(!resp.ok){
-      setStatus('err', data.error || 'Something went wrong');
-      if(resp.status === 401){
-        sessionStorage.removeItem('admin_pw');
-      }
-    } else {
-      setStatus('ok', 'Saved! Vercel is redeploying — check the live site in about 30-60 seconds.');
-    }
-  }catch(err){
-    setStatus('err', 'Upload failed: ' + err.message);
-  }finally{
-    btn.disabled = false;
-  }
-}
-
-function fileToBase64(file){
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result;
-      const base64 = result.split(',')[1];
-      resolve(base64);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
-function setStatus(kind, msg){
-  const el = document.getElementById('status');
-  el.className = 'status ' + kind;
-  el.textContent = msg;
-}
-</script>
-
+  <footer class="footer">
+    <div class="footer-links shell"><b>MANOJ DEPURI</b><a href="#">INSTAGRAM</a><a href="#">X(TWITTER)</a><a href="#">LINKEDIN</a><a href="#">BEHANCE</a><a href="#">DRIBBLE</a><a href="#">YOUTUBE</a></div>
+    <div class="footer-inner content-shell">
+      <div class="footer-top"><div><p>● &nbsp; I’m available for new projects</p><h2>Let’s work<br>together</h2></div><a class="corner-button inverse" href="mailto:depurimanoj019@gmail.com">BOOK A CALL WITH ME</a></div>
+      <h3>GET IN TOUCH</h3>
+      <div class="footer-image"></div>
+      <div class="footer-bottom"><span>© 2026 All rights reserved</span><span>Website design by Manoj Depuri</span></div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
