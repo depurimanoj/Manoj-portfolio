@@ -31,11 +31,11 @@ if (heroScroll) {
   function startAuto(){
     stopAuto();
     autoTimer = setInterval(() => {
-      heroScroll.scrollLeft += 1;
+      heroScroll.scrollLeft += 2.5;
       if (heroScroll.scrollLeft >= heroScroll.scrollWidth / 2) {
         heroScroll.scrollLeft = 0;
       }
-    }, 30);
+    }, 16);
   }
   function stopAuto(){
     if (autoTimer) clearInterval(autoTimer);
